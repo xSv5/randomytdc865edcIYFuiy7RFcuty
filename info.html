@@ -498,7 +498,7 @@
 <body>
   <div class="container">
     <div class="inner-container">
-      <i class="fa-solid fa-x"></i>
+      <i class="fa-solid fa-x" id="close-btn"></i>
       <div class="side-nav">
         <a href="/index">
           <i class="fa-solid fa-crosshairs"></i>
@@ -570,6 +570,22 @@
       e.preventDefault();
     }, {passive: false});
   </script>
+  <script>
+  document.getElementById('close-btn').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default link behavior
+
+    // Send a GET request to /close
+    fetch('/close', {
+      method: 'GET'
+    }).then(response => {
+      if (response.ok) {
+        console.log('Request to /close successful');
+      } else {
+        console.error('Request to /close failed');
+      }
+    });
+  });
+</script>
 </body>
 
 </html>
