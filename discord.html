@@ -605,28 +605,37 @@
     }, {passive: false});
   </script>
   <script>
-      document.getElementById('joinButton').addEventListener('click', function() {
-          fetch('/join', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                  // You can add any data you need to send with the request here
-                  message: 'User is joining',
-              }),
-          })
-          .then(response => response.json())
-          .then(data => {
-              console.log('Success:', data);
-              // You can handle success (e.g., show a message or redirect)
-          })
-          .catch(error => {
-              console.error('Error:', error);
-              // Handle error (e.g., show an error message)
-          });
-      });
-  </script>
+    document.getElementById('joinButton').addEventListener('click', function() {
+        fetch('/join', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                message: 'User is joining',
+            }),
+        })
+        .then(response => {
+            // Check if the response is OK
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Success:', data);
+            // You can handle success (e.g., redirect to Discord)
+            if (data.status === "success") {
+                window.location.href = "https://www.discord.com/app";
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Handle error (e.g., show an error message)
+        });
+    });
+</script>
+
 </body>
 
 </html>
