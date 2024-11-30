@@ -17,21 +17,73 @@
             align-items: center;
         }
         .container {
-            width: 400px;
+            width: 400px; /* Keep the container's original width */
             height: 250px;
             background-color: #0F1010;
             color: white;
             display: flex;
+            flex-direction: column; /* Stack text vertically */
             justify-content: flex-start;
             align-items: flex-start;
             padding: 10px;
             font-size: 10px;
+            overflow-y: auto; /* Allow scrolling if content overflows */
+            position: relative; /* Allow absolute positioning inside */
+        }
+        .container div:first-child {
+            margin-top: 10px; /* Apply margin to only the first text */
+        }
+        .container div:not(:first-child) {
+            margin-top: 0; /* No margin for the other texts */
+        }
+
+        /* Custom scrollbar styles */
+        .container::-webkit-scrollbar {
+            width: 8px; /* Set width of the scrollbar */
+            position: absolute;
+            right: 5px; /* Position the scrollbar 5px from the right */
+        }
+
+        .container::-webkit-scrollbar-track {
+            background: transparent; /* No background for the scrollbar track */
+        }
+
+        .container::-webkit-scrollbar-thumb {
+            background-color: #222; /* Same color as background */
+            border-radius: 10px; /* Rounded corners */
+        }
+
+        .container::-webkit-scrollbar-thumb:hover {
+            background-color: #444; /* Darker shade for hover effect */
         }
     </style>
 </head>
 <body>
     <div class="container">
-        White Text Inside Container
+        <div>White Text Inside Container</div>
+        <div>White Text Inside Container</div>
+        <div>White Text Inside Container</div>
+        <div>White Text Inside Container</div>
+        <div>White Text Inside Container</div>
+        <div>White Text Inside Container</div>
+        <div>White Text Inside Container</div>
+        <div>White Text Inside Container</div>
+        <div>White Text Inside Container</div>
+        <div>White Text Inside Container</div>
+        <div>White Text Inside Container</div>
+        <div>White Text Inside Container</div>
+        <div>White Text Inside Container</div>
+        <div>White Text Inside Container</div>
+        <div>White Text Inside Container</div>
+        <div>White Text Inside Container</div>
+        <div>White Text Inside Container</div>
+        <div>White Text Inside Container</div>
+        <div>White Text Inside Container</div>
+        <div>White Text Inside Container</div>
+        <div>White Text Inside Container</div>
+        <div>White Text Inside Container</div>
+        <div>White Text Inside Container</div>
+        <div>White Text Inside Container</div>
     </div>
 </body>
 </html>
