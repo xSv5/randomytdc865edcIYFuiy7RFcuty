@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nested Container</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0"></script>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+      overflow: hidden;
+    }
+
+    #close-btn {
+      font-size: 16px; /* Set the default font size */
+      transition: transform 0.2s ease; /* Add a smooth transition for the transformation */
+    }
+
+    #close-btn:hover {
+      transform: scale(1.2); /* Scale the icon to 1.2 times its original size */
+    }
+
+    .container {
+
+      width: 600px;
+      height: 330px;
+      background-color: #0F1010;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .inner-container {
+      width: 65%;
+      height: 60%;
+      background-color: #0F1010;
+      border: 1px solid #1E1E1E;
+      border-radius: 8px;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 10px;
+    }
+
+    .text1 {
+
+      color: white;
+      font-family: 'Comfortaa', sans-serif;
+      font-size: 16px;
+      position: absolute;
+      left: 10px;
+      top: 5px;
+    }
+
+    .text2 {
+
+      color: #808080;
+      font-family: 'Comfortaa', sans-serif;
+      font-size: 14px;
+      position: absolute;
+      left: 10px;
+      top: 35px;
+    }
+
+    .text3 {
+
+      color: #808080;
+      font-family: 'Comfortaa', sans-serif;
+      font-size: 14px;
+      position: absolute;
+      left: 10px;
+      top: 52px;
+    }
+
+    .text4 {
+
+      color: #808080;
+      font-family: 'Comfortaa', sans-serif;
+      font-size: 14px;
+      position: absolute;
+      left: 10px;
+      top: 90px;
+    }
+
+    .text5 {
+
+      color: #808080;
+      font-family: 'Comfortaa', sans-serif;
+      font-size: 14px;
+      position: absolute;
+      left: 10px;
+      top: 110px;
+    }
+
+    .text6 {
+
+      color: #808080;
+      font-family: 'Comfortaa', sans-serif;
+      font-size: 14px;
+      position: absolute;
+      left: 10px;
+      top: 90px;
+    }
+
+    .text7 {
+
+      color: #808080;
+      font-family: 'Comfortaa', sans-serif;
+      font-size: 14px;
+      position: absolute;
+      left: 10px;
+      top: 72px;
+    }
+
+    .text8 {
+
+      color: #808080;
+      font-family: 'Comfortaa', sans-serif;
+      font-size: 14px;
+      position: absolute;
+      left: 10px;
+      top: 130px;
+    }
+
+    /* Style for the switch */
+    .switch {
+      left: 360px;
+      top: -5px;
+      position: relative;
+      display: inline-block;
+      width: 28px;
+      /* Reduced width */
+      height: 16px;
+      /* Reduced height */
+
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      position: absolute;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #242626;
+      transition: 0.4s;
+      border-radius: 50px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 10px;
+      /* Reduced size */
+      width: 10px;
+      /* Reduced size */
+      border-radius: 50%;
+      left: 3px;
+      /* Adjusted position */
+      bottom: 3px;
+      /* Adjusted position */
+      background-color: white;
+      transition: 0.4s;
+    }
+
+    input:checked+.slider {
+      background-color: #FF0000;
+    }
+
+    input:checked+.slider:before {
+      transform: translateX(12px);
+      /* Adjusted translation */
+    }
+
+    /* Horizontal bar style */
+    .horizontal-bar {
+      position: absolute;
+      top: 25px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: #1E1E1E;
+    }
+
+
+    input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 15px;
+      height: 15px;
+      border: 2px solid #1E1E1E;
+      border-radius: 20%;
+      background-color: #1E1E1E;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Style when checkbox is checked */
+    input[type="checkbox"]:checked {
+      background-color: red;
+      border-color: red;
+    }
+
+    /* Optional: style the label */
+    label {
+      margin-left: 8px;
+      cursor: pointer;
+    }
+
+    .debug-checkbox {
+      position: absolute;
+      top: 46px;
+      left: 380px;
+      width: 20px;
+      height: 20px;
+      background-color: #1E1E1E;
+      border-radius: 5px;
+      z-index: 10;
+      /* Ensure it is above other elements */
+    }
+
+
+    .orc-checkbox {
+      position: absolute;
+      top: 27px;
+      left: 380px;
+      width: 20px;
+      /* Set size */
+      height: 20px;
+      /* Set size */
+      background-color: #1E1E1E;
+      /* Set background */
+      border-radius: 5px;
+      /* Optional: rounded corners */
+    }
+
+    .fov-checkbox {
+      position: absolute;
+      top: 65px;
+      left: 380px;
+      width: 18px;
+      height: 18px;
+      background-color: #1E1E1E;
+      border-radius: 5px;
+      border: 0px solid #FF0000;
+      /* Add border */
+      z-index: 10000;
+    }
+
+
+    .water-slider2 {
+      position: absolute;
+      left: 240px;
+      top: 105px;
+      width: 10em;
+      text-align: center;
+      z-index: 990;
+      /* Adjust the second slider's position without affecting the overall design */
+    }
+
+    .water-slider1 {
+      position: absolute;
+      left: 240px;
+      top: 85px;
+      width: 10em;
+      text-align: center;
+      z-index: 9;
+    }
+
+    .range-slider {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .range-slider input[type=range] {
+      -webkit-appearance: none;
+      width: 100%;
+      background: transparent;
+      height: 6px;
+      border-radius: 5px;
+      outline: none;
+      padding: 0;
+      margin: 12px 0;
+    }
+
+    .range-slider input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 7px;
+      height: 6px;
+      border-radius: 50%;
+      background: #FF0000;
+      cursor: pointer;
+      transition: background .15s ease-in-out;
+    }
+
+    .range-slider input[type=range]::-webkit-slider-thumb:hover {
+      background: #FF0000;
+    }
+
+    .range-slider input[type=range]::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #FF0000;
+      cursor: pointer;
+      transition: background .15s ease-in-out;
+    }
+
+    .range-slider input[type=range]::-moz-range-thumb:hover {
+      background: #FF0000;
+    }
+
+
+
+    /* Apply Google Font (Comfortaa) */
+    @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap');
+
+    .custom-dropdown .dropdown {
+      display: none;
+      /* Initially hide the dropdown */
+      flex-direction: column;
+      position: absolute;
+      width: 80px;
+      height: auto;
+      color: white;
+      font-family: 'Comfortaa', sans-serif;
+      font-size: 12px;
+      top: 125px;
+      left: 170px;
+      z-index: 1000;
+    }
+
+    .custom-dropdown input:checked+.dropdown {
+      display: flex;
+      /* Show dropdown when checkbox is checked */
+    }
+
+    .custom-dropdown .item {
+      padding: 0 30px 0 10px;
+      min-height: 20px;
+      display: flex;
+      align-items: center;
+      background: #1E1E1E;
+      border-top: #222 solid 1px;
+      position: relative;
+      width: 100%;
+      cursor: pointer;
+      transition: background .4s ease-in-out;
+      box-sizing: border-box;
+    }
+
+    .custom-dropdown .item:hover {
+      background: #0f0f0f;
+    }
+
+    .custom-dropdown input {
+      display: none;
+      /* Hide the checkbox */
+    }
+
+
+
+    .custom-dropdown input:checked+label {
+      order: 1;
+      z-index: 2;
+      background: #1E1E1E;
+      border-top: none;
+      position: relative;
+    }
+
+    .custom-dropdown input:checked+label:after {
+      content: '';
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid white;
+      position: absolute;
+      right: 10px;
+      top: calc(50% - 2.5px);
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .custom-dropdown input:checked+label:before {
+      position: absolute;
+      right: 0;
+      height: 40px;
+      width: 40px;
+      content: '';
+      background: #1E1E1E;
+      border-radius: 50%;
+      /* Round the button */
+    }
+
+    .side-nav {
+      width: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 10px;
+      position: absolute;
+
+      /* margin-top: 10px; */
+      top: -0px;
+      left: -100px;
+      z-index: 10;
+    }
+
+    .side-nav i {
+      color: red;
+      /* Updated color */
+      font-size: 20px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      /* Smooth transition */
+    }
+
+    .side-nav i:hover {
+      transform: scale(1.2);
+      /* Slightly larger when hovered */
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 0 0 20px rgba(255, 0, 0, 0.6);
+      /* Glow around the icon */
+    }
+
+
+    .side-nav hr {
+      width: 40px;
+      border: 0;
+      border-top: 1px solid #555;
+      margin: 10px auto;
+    }
+
+
+
+    #singleKeyInput {
+      position: absolute;
+      top: 130px;
+      left: 376px;
+      background-color: #1E1E1E;
+      /* Dark background color */
+      color: white;
+      /* White text color */
+      border: none;
+      /* Remove border */
+      padding: 2px;
+      /* Add padding */
+      border-radius: 10%;
+      /* Make it round */
+      font-size: 14px;
+      /* Increase font size */
+      width: 20px;
+      /* Set the width to fit one character */
+      text-align: center;
+      /* Center the text */
+    }
+    /* Prevent text selection on the entire page */
+    * {
+      user-select: none;
+    }
+
+
+    /* Optional: Style the focus effect */
+    #singleKeyInput:focus {
+      outline: none;
+      /* Remove default focus outline */
+    }
+    input[type="checkbox"]:focus {
+      outline: none;  /* Remove the default outline on focus */
+    }
+
+    i.fa-solid.fa-x {
+      position: absolute;
+      top: -40px; /* Adjust the position as needed */
+      right: -80px; /* Adjust the position as needed */
+      font-size: 14px; /* Set the font size */
+      color: red; /* Optional: change the color */
+    }
+
+        /* Full-screen overlay */
+    #overlay1 {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #0F1010; /* Dark background */
+        z-index: 99990;
+        opacity: 1;
+        transition: opacity 1s ease-out; /* Fade out effect */
+    }
+
+    /* Content will be hidden under the overlay */
+    #content1 {
+        display: none; /* Hide content initially */
+        text-align: center;
+        margin-top: 20%;
+        color: white;
+    }
+
+    /* After fade-out, reveal content */
+    .fade-out #overlay1 {
+        opacity: 0; /* Fade overlay out */
+        pointer-events: none; /* Allow clicks through the overlay */
+    }
+
+    .fade-out #content1 {
+        display: block; /* Show content */
+    }
+  </style>
+</head>
+
+<body>
+  
+
+  <div class="container">
+    <div id="overlay1"></div>
+    <div class="inner-container">
+
+      <i class="fa-solid fa-x" id="close-btn"></i>
+      <div class="side-nav">
+        <a href="/index">
+          <i class="fa-solid fa-crosshairs"></i>
+        </a>
+        <hr>
+        <a href="/settings">
+          <i class="fas fa-cog"></i>
+        </a>
+        <hr>
+        <a href="/discord">
+          <i class="fa-brands fa-discord"></i>
+        </a>
+        <hr>
+        <a href="/info">
+          <i class="fas fa-info-circle"></i>
+        </a>
+      </div>
+      <div class="horizontal-bar"></div> <!-- Horizontal Bar -->
+      <div class="text1">Aimbot</div>
+      <label class="switch">
+        <input type="checkbox">
+        <span class="slider"></span>
+      </label>
+      <div class="text2">On Right Click</div>
+      <input type="checkbox" class="orc-checkbox" id="orc-checkbox">
+      <div class="text3">Debug</div>
+      <input type="checkbox" class="debug-checkbox" id="debug-checkbox">
+
+      <div class="text7">Fov</div>
+      <input type="checkbox" class="fov-checkbox" id="fov-checkbox">
+
+
+      <div class="text4">Speed</div>
+      <div class="water-slider1">
+        <div class="range-slider">
+          <input id="range-slider-val" class="range-slider__range" type="range" value="2000" min="0" max="5000">
+        </div>
+      </div>
+      <div class="text5">Smoothness</div>
+      <div class="water-slider2">
+        <div class="range-slider">
+          <input id="range-slider-val-smoothness" class="range-slider__range" type="range" value="2000" min="0"
+            max="5000">
+        </div>
+      </div>
+      <div class="text8">Bind</div>
+      <input type="text" id="singleKeyInput" maxlength="1" oninput="" onclick="" />
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+  <script>
+    const settings = {
+      fill: '#FF0000',
+      background: '#1E1E1E'
+    };
+
+    const sliders = document.querySelectorAll('.range-slider');
+
+    Array.prototype.forEach.call(sliders, (slider) => {
+      slider.querySelector('input').addEventListener('input', (event) => {
+        applyFill(event.target);
+      });
+      applyFill(slider.querySelector('input'));
+    });
+
+    function applyFill(slider) {
+      const percentage = 100 * (slider.value - slider.min) / (slider.max - slider.min);
+      const bg = `linear-gradient(90deg, ${settings.fill} ${percentage}%, ${settings.background} ${percentage + 0.1}%)`;
+      slider.style.background = bg;
+    }
+  </script>
+  <script>
+    // Disable the scroll wheel (mouse wheel)
+    window.addEventListener('wheel', function (e) {
+      e.preventDefault();
+    }, {passive: false});
+  </script>
+  <script>
+  document.getElementById('close-btn').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default link behavior
+
+    // Send a GET request to /close
+    fetch('/close', {
+      method: 'GET'
+    }).then(response => {
+      if (response.ok) {
+        console.log('Request to /close successful');
+      } else {
+        console.error('Request to /close failed');
+      }
+    });
+  });
+</script>
+<script>
+    // Check if the user is coming from a link within the same website
+    window.onload = function() {
+        // Check if referrer is empty or from a different domain
+        if (document.referrer === "" || !document.referrer.includes(window.location.hostname)) {
+            // If no referrer or referrer is not from the same site, apply fade-out
+            setTimeout(function() {
+                document.body.classList.add('fade-out'); // Add class to trigger fade-out
+            }, 100); // Delay to allow the page to load first
+        } else {
+            // If referrer is from the same site, no fade-out
+            document.body.classList.add('fade-out');
+        }
+    };
+
+
+  </script>
+</body>
+
+</html>
