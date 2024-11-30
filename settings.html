@@ -602,30 +602,41 @@
     .catch(error => console.error('Error fetching settings:', error));
 </script>
 <script>
-  document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-    checkbox.addEventListener('change', function() {
-      const checkBoxType = this.id; // Get the ID of the checkbox (e.g., "orc-checkbox")
-      const isChecked = this.checked; // Determine if the checkbox is checked or not
+  // Select all checkboxes
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
-      fetch(`/smv_update/${checkBoxType}`, {
+  // Loop through each checkbox and add an event listener
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+      const data = {
+        checkbox_id: checkbox.id,  // Get the checkbox's ID
+        checked: checkbox.checked  // Get whether it's checked or not
+      };
+
+      // Send the data to the server
+      fetch(`/smv_update/${checkbox.id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ checked: isChecked })
+        body: JSON.stringify(data)
       })
       .then(response => {
         if (!response.ok) {
           throw new Error('Request failed');
         }
-        console.log(`${checkBoxType} updated successfully`);
+        return response.json();
+      })
+      .then(responseData => {
+        console.log('Response:', responseData);
       })
       .catch(error => {
-        console.error(`Error updating ${checkBoxType}:`, error);
+        console.error(`Error updating ${checkbox.id}:`, error);
       });
     });
   });
 </script>
+
 
 
 </body>
