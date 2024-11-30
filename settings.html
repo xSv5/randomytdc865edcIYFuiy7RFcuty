@@ -594,13 +594,14 @@
   fetch('/smv')
     .then(response => response.json()) // Assuming /smv returns JSON data
     .then(settings => {
-      // Toggle the checkboxes based on the settings
-      document.getElementById('sound-checkbox').checked = settings.soundEffects;
-      document.getElementById('notifications-checkbox').checked = settings.notifications;
-      document.getElementById('particles-checkbox').checked = settings.particles;
+      // Toggle the checkboxes based on the settings, converting string values to booleans
+      document.getElementById('sound-checkbox').checked = settings['sound-checkbox'] === 'true';
+      document.getElementById('notifications-checkbox').checked = settings['notifications-checkbox'] === 'true';
+      document.getElementById('particles-checkbox').checked = settings['particles-checkbox'] === 'true';
     })
     .catch(error => console.error('Error fetching settings:', error));
 </script>
+
 <script>
   // Select all checkboxes
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
