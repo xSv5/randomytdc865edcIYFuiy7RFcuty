@@ -607,34 +607,22 @@
   <script>
     document.getElementById('joinButton').addEventListener('click', function() {
         fetch('/join', {
-            method: 'POST',
+            method: 'GET',  // Send a GET request
             headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                message: 'User is joining',
-            }),
-        })
-        .then(response => {
-            // Check if the response is OK
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+                'Content-Type': 'application/json',  // This header is set for consistency, though not strictly needed
             }
-            return response.json();
         })
-        .then(data => {
-            console.log('Success:', data);
-            // You can handle success (e.g., redirect to Discord)
-            if (data.status === "success") {
-                window.location.href = "https://www.discord.com/app";
-            }
+        .then(() => {
+            // No redirection here, the request is made but no action follows
+            console.log('GET request sent');
         })
         .catch(error => {
             console.error('Error:', error);
-            // Handle error (e.g., show an error message)
+            // Handle error if something goes wrong
         });
     });
 </script>
+
 
 </body>
 
