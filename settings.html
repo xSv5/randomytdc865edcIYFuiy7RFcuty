@@ -222,7 +222,7 @@
       cursor: pointer;
     }
 
-    .debug-checkbox {
+    .notifications-checkbox {
       position: absolute;
       top: 46px;
       left: 380px;
@@ -235,7 +235,7 @@
     }
 
 
-    .orc-checkbox {
+    .sound-checkbox {
       position: absolute;
       top: 27px;
       left: 380px;
@@ -249,7 +249,7 @@
       /* Optional: rounded corners */
     }
 
-    .fov-checkbox {
+    .particles-checkbox {
       position: absolute;
       top: 65px;
       left: 380px;
@@ -523,12 +523,12 @@
       <div class="text1">Settings</div>
       
       <div class="text2">Sound Effects</div>
-      <input type="checkbox" class="orc-checkbox" id="orc-checkbox">
+      <input type="checkbox" class="sound-checkbox" id="sound-checkbox">
       <div class="text3">Notifications</div>
-      <input type="checkbox" class="debug-checkbox" id="debug-checkbox">
+      <input type="checkbox" class="notifications-checkbox" id="notifications-checkbox">
 
       <div class="text7">Particles</div>
-      <input type="checkbox" class="fov-checkbox" id="fov-checkbox">
+      <input type="checkbox" class="particles-checkbox" id="particles-checkbox">
 
 
       
@@ -595,9 +595,9 @@
     .then(response => response.json()) // Assuming /smv returns JSON data
     .then(settings => {
       // Toggle the checkboxes based on the settings
-      document.getElementById('orc-checkbox').checked = settings.soundEffects;
-      document.getElementById('debug-checkbox').checked = settings.notifications;
-      document.getElementById('fov-checkbox').checked = settings.particles;
+      document.getElementById('sound-checkbox').checked = settings.soundEffects;
+      document.getElementById('notifications-checkbox').checked = settings.notifications;
+      document.getElementById('particles-checkbox').checked = settings.particles;
     })
     .catch(error => console.error('Error fetching settings:', error));
 </script>
