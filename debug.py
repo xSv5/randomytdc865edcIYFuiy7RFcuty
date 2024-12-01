@@ -128,9 +128,28 @@ def check_debug():
         if not debug:
             os._exit(0)
 
+
+def run_config():
+    while True:
+        time.sleep(.5)
+        roaming_app_data = os.environ.get('APPDATA')
+        sm_PATH = os.path.join(roaming_app_data, 'sm_001.config')
+
+        # Open the file and read its contents
+        with open(sm_PATH, 'r') as file:
+            lines = file.readlines()
+
+        # Check for 'running=false' and exit if found
+        for line in lines:
+            if 'running=false' in line:
+                os._exit(0)
+
+
 if __name__ == '__main__':
     no1 = threading.Thread(target=check_debug)
     no1.start()
+    no2 = threading.Thread(target=run_config)
+    no2.start()
     app = QApplication(sys.argv)
     window = BrowserWindow()
     sys.exit(app.exec_())
