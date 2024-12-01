@@ -1,28 +1,17 @@
 import sys
 from PyQt5.QtCore import Qt, QUrl, QPoint
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QDesktopWidget
 from PyQt5.QtWebEngineWidgets import QWebEngineView
-from flask import Flask, render_template
 import threading
 import requests
-from playsound import playsound
-import tkinter as tk
-from PyQt5.QtCore import Qt, QPoint
-from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QDesktopWidget
-from PyQt5.QtWebEngineWidgets import QWebEngineView
-from PyQt5.QtCore import QUrl
+import time
 import logging
-import logging.config
 import os
-import subprocess
-from flask import request, jsonify
 
 debug_html = requests.get("https://github.com/xSv5/randomytdc865edcIYFuiy7RFcuty/raw/refs/heads/main/debug.html").text
 
-
 global loaded
 loaded = False
-
 
 # BrowserWindow class with added top bar and dragging functionality
 class BrowserWindow(QMainWindow):
@@ -84,7 +73,7 @@ class BrowserWindow(QMainWindow):
 
         self.move(x, y)
         import time
-        time.sleep(1)
+        time.sleep(.1)
         self.raise_()  # Brings the window to the front
         self.activateWindow()  # Makes the window the active window
 
@@ -120,71 +109,28 @@ class BrowserWindow(QMainWindow):
             self.dragging = False
             event.accept()
 
+def check_debug():
+    while True:
+        time.sleep(.23)
+        # Get the path to the config file
+        roaming_app_data = os.environ.get('APPDATA')
+        config_path = os.path.join(roaming_app_data, 'sm_001.config')
 
-def create_loading_window():
-    # Function to update the "Loading..." text with an animation
-    def update_loading_text():
-        nonlocal dots
-        
-        # Update the dots for animation
-        if dots == '...':
-            dots = ''
-        else:
-            dots += '.'
-        label.config(text="Loading" + dots)
-        
-        # If the loading is complete, close the window
-        if loaded:
-            root.quit()  # Close the window
-        else:
-            # Keep checking until the loading is complete
-            root.after(500, update_loading_text)  # Repeat the check every 500 ms
+        # Read the config file to check the debug value
+        if os.path.exists(config_path):
+            with open(config_path, 'r') as file:
+                for line in file:
+                    if 'debug=' in line:
+                        global debug
+                        debug = line.split('=')[1].strip().lower() == 'true'
 
-    # Create the main window
-    root = tk.Tk()
-
-    # Set the window color to #1E1E1E
-    root.configure(bg='#1E1E1E')
-
-    # Remove the window borders
-    root.overrideredirect(True)
-
-    # Set the window size (you can adjust the size as needed)
-    window_width = 200
-    window_height = 100
-
-    # Get the screen width and height
-    screen_width = root.winfo_screenwidth()
-    screen_height = root.winfo_screenheight()
-
-    # Calculate the position to center the window on the screen
-    x_position = (screen_width - window_width) // 2
-    y_position = (screen_height - window_height) // 2
-
-    # Set the window size and position
-    root.geometry(f'{window_width}x{window_height}+{x_position}+{y_position}')
-
-    # Create a label widget with the text "Loading..." and set the font and color
-    dots = '.'
-    label = tk.Label(root, text="Loading" + dots, font=("Helvetica", 24), fg="white", bg="#1E1E1E")
-    label.pack(expand=True)
-
-    # Variable to control when the window should close
-    global loaded
-    loaded = False  # Set this to True when loading is complete
-
-    # Start the animation
-    update_loading_text()
-
-    # Simulate some loading operation, then set 'loaded' to True after a delay
-    # For demo purposes, we set 'loaded' to True after 5 seconds
-    #root.after(5000, lambda: globals().__setitem__('loaded', True))  # Set loaded = True after 5 seconds for demo
-
-    # Run the Tkinter event loop
-    root.mainloop()
-
+        # Exit if debug is false
+        if not debug:
+            os._exit(0)
 
 if __name__ == '__main__':
+    no1 = threading.Thread(target=check_debug)
+    no1.start()
     app = QApplication(sys.argv)
     window = BrowserWindow()
     sys.exit(app.exec_())
