@@ -120,12 +120,12 @@ def check_debug():
         if os.path.exists(config_path):
             with open(config_path, 'r') as file:
                 for line in file:
-                    if 'debug=' in line:
-                        global debug
-                        debug = line.split('=')[1].strip().lower() == 'true'
+                    if 'debug-checkbox=' in line:
+                        global debug_checkbox
+                        debug_checkbox = line.split('=')[1].strip().lower() == 'true'
 
         # Exit if debug is false
-        if not debug:
+        if not debug_checkbox:
             os._exit(0)
 
 
@@ -153,4 +153,4 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = BrowserWindow()
     sys.exit(app.exec_())
-    app.run(debug=True)
+    app.run(debug_checkbox=True)
