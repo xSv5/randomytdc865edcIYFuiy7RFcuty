@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Debug Manu</title>
+    <title>Debug Menu</title>
     <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
     <style>
         body {
@@ -56,38 +56,46 @@
         .container::-webkit-scrollbar-thumb:hover {
             background-color: #444; /* Darker shade for hover effect */
         }
-        body {
-    		overflow: hidden;
-		}
 
+        body {
+            overflow: hidden;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div>White Text Inside Container</div>
-        <div>White Text Inside Container</div>
-        <div>White Text Inside Container</div>
-        <div>White Text Inside Container</div>
-        <div>White Text Inside Container</div>
-        <div>White Text Inside Container</div>
-        <div>White Text Inside Container</div>
-        <div>White Text Inside Container</div>
-        <div>White Text Inside Container</div>
-        <div>White Text Inside Container</div>
-        <div>White Text Inside Container</div>
-        <div>White Text Inside Container</div>
-        <div>White Text Inside Container</div>
-        <div>White Text Inside Container</div>
-        <div>White Text Inside Container</div>
-        <div>White Text Inside Container</div>
-        <div>White Text Inside Container</div>
-        <div>White Text Inside Container</div>
-        <div>White Text Inside Container</div>
-        <div>White Text Inside Container</div>
-        <div>White Text Inside Container</div>
-        <div>White Text Inside Container</div>
-        <div>White Text Inside Container</div>
-        <div>White Text Inside Container</div>
+    <div class="container" id="debugContainer">
     </div>
+
+    <script>
+        function fetchDebugText() {
+            fetch('/debug_txt')
+                .then(response => response.text())
+                .then(data => {
+                    const container = document.getElementById('debugContainer');
+                    container.innerHTML = ''; // Clear the existing content
+                    const lines = data.split('\n'); // Split text by line breaks
+                    lines.forEach(line => {
+                        const div = document.createElement('div');
+                        div.textContent = line; // Set each line as text inside a div
+                        container.appendChild(div);
+                    });
+                    scrollToBottom(container); // Scroll to the bottom after updating content
+                })
+                .catch(error => {
+                    console.error('Error fetching debug text:', error);
+                });
+        }
+
+        // Function to scroll the container to the bottom
+        function scrollToBottom(container) {
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Update the content every second (1000 milliseconds)
+        setInterval(fetchDebugText, 1000);
+        
+        // Initial fetch on page load
+        fetchDebugText();
+    </script>
 </body>
 </html>
